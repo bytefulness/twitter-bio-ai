@@ -5,8 +5,6 @@ import { useRef, useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import DropDown, { VibeType } from "../components/DropDown";
 import Footer from "../components/Footer";
-import Github from "../components/GitHub";
-import Header from "../components/Header";
 import LoadingDots from "../components/LoadingDots";
 
 const Home: NextPage = () => {
@@ -73,7 +71,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Twitter Bio Generator</title>
+        <title>Bio With AI🚀</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
