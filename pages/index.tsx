@@ -30,7 +30,7 @@ const Home: NextPage = () => {
   }
       Make sure each generated biography is less than 160 characters, has short sentences that are found in Twitter bios, and base them on this context: ${bio}${
     bio.slice(-1) === "." ? "" : "."
-  }`;
+  }. Don't respond to the prompt, just write the bios.`;
 
   const generateBio = async (e: any) => {
     e.preventDefault();
@@ -79,43 +79,29 @@ const Home: NextPage = () => {
 
       {/* <Header /> */}
       <main className="flex flex-1 w-full flex-col items-center justify-center text-center px-4 mt-12 sm:mt-20">
-        <section className="bg-white rounded-3xl py-36 px-16 w-full max-w-[1330px]">
-          <h1 className="text-7xl font-extrabold tracking-tight max-w-5xl mx-auto leading-tight mb-12">
+        <section className="bg-white rounded-3xl p-8 md:py-36 md:px-16 w-full max-w-[1330px] mb-9">
+          <h1 className="text-3xl md:text-7xl font-extrabold tracking-tight max-w-5xl mx-auto leading-tight mb-12">
             Crafting Memorable Twitter Bios with AI
           </h1>
 
-          <p className="text-lg text-gray-500 max-w-2xl mb-8 mx-auto">
+          <p className="text-lg text-gray-500 max-w-2xl mb-16 mx-auto">
             Unleash the power of cutting-edge AI technology to craft captivating
-            Twitter bios that elevate your profile and attract followers 🚀.
+            Twitter bios that elevate your profile and attract followers. 🚀
           </p>
 
-          <button className="py-5 px-12 bg-black text-gray-100 rounded-[36px]">
+          <a
+            href="#generator"
+            className="py-5 px-12 bg-black hover:bg-slate-900 text-gray-100 rounded-[36px] font-semibold"
+          >
             Start Generating
-          </button>
+          </a>
         </section>
 
-        <a
-          className="flex max-w-fit items-center justify-center space-x-2 rounded-full border border-gray-300 bg-white px-4 py-2 text-sm text-gray-600 shadow-md transition-colors hover:bg-gray-100 mb-5"
-          href="https://github.com/Nutlope/twitterbio"
-          target="_blank"
-          rel="noopener noreferrer"
+        <section
+          id="generator"
+          className="bg-white rounded-3xl p-8 md:py-36 md:px-16 w-full max-w-[1330px] mb-9"
         >
-          <Github />
-          <p>Star on GitHub</p>
-        </a>
-        <h1 className="sm:text-6xl text-4xl max-w-[708px] font-bold text-slate-900">
-          Generate your next Twitter bio using chatGPT
-        </h1>
-        <p className="text-slate-500 mt-5">47,118 bios generated so far.</p>
-        <div className="max-w-xl w-full">
           <div className="flex mt-10 items-center space-x-3">
-            <Image
-              src="/1-black.png"
-              width={30}
-              height={30}
-              alt="1 icon"
-              className="mb-5 sm:mb-0"
-            />
             <p className="text-left font-medium">
               Copy your current bio{" "}
               <span className="text-slate-500">
@@ -130,12 +116,13 @@ const Home: NextPage = () => {
             rows={4}
             className="w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black my-5"
             placeholder={
-              "e.g. Senior Developer Advocate @vercel. Tweeting about web development, AI, and React / Next.js. Writing nutlope.substack.com."
+              "e.g. Marketing Manager @Amazon. Tweeting about AI and Startups."
             }
           />
           <div className="flex mb-5 items-center space-x-3">
-            <Image src="/2-black.png" width={30} height={30} alt="1 icon" />
-            <p className="text-left font-medium">Select your vibe.</p>
+            <p className="text-left font-medium">
+              Select vibe you want for your generated bio.
+            </p>
           </div>
           <div className="block">
             <DropDown vibe={vibe} setVibe={(newVibe) => setVibe(newVibe)} />
@@ -143,7 +130,7 @@ const Home: NextPage = () => {
 
           {!loading && (
             <button
-              className="bg-black rounded-xl text-white font-medium px-4 py-2 sm:mt-10 mt-8 hover:bg-black/80 w-full"
+              className="bg-black text-white font-medium py-4 px-12 rounded-[36px] sm:mt-10 mt-8 hover:bg-black/80 w-full"
               onClick={(e) => generateBio(e)}
             >
               Generate your bio &rarr;
@@ -151,54 +138,81 @@ const Home: NextPage = () => {
           )}
           {loading && (
             <button
-              className="bg-black rounded-xl text-white font-medium px-4 py-2 sm:mt-10 mt-8 hover:bg-black/80 w-full"
+              className="bg-black rounded-[36px] text-white font-medium py-4 px-12 sm:mt-10 mt-8 hover:bg-black/80 w-full"
               disabled
             >
               <LoadingDots color="white" style="large" />
             </button>
           )}
-        </div>
-        <Toaster
-          position="top-center"
-          reverseOrder={false}
-          toastOptions={{ duration: 2000 }}
-        />
-        <hr className="h-px bg-gray-700 border-1 dark:bg-gray-700" />
-        <div className="space-y-10 my-10">
-          {generatedBios && (
-            <>
-              <div>
-                <h2
-                  className="sm:text-4xl text-3xl font-bold text-slate-900 mx-auto"
-                  ref={bioRef}
-                >
-                  Your generated bios
-                </h2>
-              </div>
-              <div className="space-y-8 flex flex-col items-center justify-center max-w-xl mx-auto">
-                {generatedBios
-                  .substring(generatedBios.indexOf("1") + 3)
-                  .split("2.")
-                  .map((generatedBio) => {
-                    return (
-                      <div
-                        className="bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-copy border"
-                        onClick={() => {
-                          navigator.clipboard.writeText(generatedBio);
-                          toast("Bio copied to clipboard", {
-                            icon: "✂️",
-                          });
-                        }}
-                        key={generatedBio}
-                      >
-                        <p>{generatedBio}</p>
-                      </div>
-                    );
-                  })}
-              </div>
-            </>
-          )}
-        </div>
+
+          <Toaster
+            position="top-center"
+            reverseOrder={false}
+            toastOptions={{ duration: 2000 }}
+          />
+
+          <div className="space-y-10 my-10">
+            {generatedBios && (
+              <>
+                <div>
+                  <h2
+                    className="sm:text-4xl text-3xl font-bold tracking-tight text-slate-900 mx-auto mb-2"
+                    ref={bioRef}
+                  >
+                    Your generated bios
+                  </h2>
+
+                  <p className="text-lg text-gray-500">
+                    Copy your generated bio by clicking on it.
+                  </p>
+                </div>
+                <div className="space-y-8 flex flex-col items-center justify-center max-w-xl mx-auto">
+                  {generatedBios
+                    .substring(generatedBios.indexOf("1") + 3)
+                    .split("2.")
+                    .map((generatedBio) => {
+                      return (
+                        <div
+                          className="bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-copy border"
+                          onClick={() => {
+                            navigator.clipboard.writeText(generatedBio);
+                            toast("Bio copied to clipboard", {
+                              icon: "✂️",
+                            });
+                          }}
+                          key={generatedBio}
+                        >
+                          <p>{generatedBio}</p>
+                        </div>
+                      );
+                    })}
+                </div>
+              </>
+            )}
+          </div>
+        </section>
+
+        <section className="bg-white rounded-3xl p-8 md:py-36 md:px-16 w-full max-w-[1330px]">
+          <div className="flex flex-col justify-center items-center">
+            <Image
+              className="rounded-full mb-4"
+              src="/creator.jpg"
+              width={120}
+              height={120}
+              alt="Creator of app"
+            />
+
+            <span className="font-semibold text-xl">Erhan AKYEL</span>
+            <span className="text-gray-600 font-semibold text-sm mb-9">
+              Creator of App
+            </span>
+
+            <p className="text-lg text-gray-500">
+              This project was made by me as part of the university graduation
+              project.
+            </p>
+          </div>
+        </section>
       </main>
       <Footer />
     </>
