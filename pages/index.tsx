@@ -71,7 +71,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Bio With AI🚀</title>
+        <title>Bio With AI 🚀</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -202,12 +202,15 @@ const Home: NextPage = () => {
 
             <span className="font-semibold text-xl">Erhan AKYEL</span>
             <span className="text-gray-600 font-semibold text-sm mb-9">
-              Creator of App
+              Developer of App
             </span>
 
-            <p className="text-lg text-gray-500">
-              This project was made by me as part of the university graduation
-              project.
+            <p className="text-lg text-gray-500 max-w-3xl">
+              The completion of this project was undertaken as part of my
+              university graduation requirements at Izmır Katip Celebi
+              University. I would like to express my gratitude to Associate
+              Professor Aytuğ ONAN for providing me with the opportunity to
+              develop this project.
             </p>
           </div>
         </section>
